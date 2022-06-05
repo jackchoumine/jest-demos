@@ -2,7 +2,7 @@
  * @Description : 对象和数组匹配器
  * @Date        : 2022-06-06 06:38:29 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-06-06 06:46:03 +0800
+ * @LastEditTime: 2022-06-06 06:50:57 +0800
  * @LastEditors : JackChou
  */
 
@@ -27,5 +27,19 @@ describe('对象和数组匹配器', () => {
     const arr = [1, { name: 'jest' }, 'hello']
     expect(arr).toEqual(arr)
     expect(arr).toEqual([1, { name: 'jest' }, 'hello'])
+  })
+
+  test('toBeNull', () => {
+    const a = null
+    expect(a).toBeNull()
+    expect(a).not.toBe(undefined)
+  })
+
+  test('toBeUndefined', () => {
+    const a = undefined
+    const b = ''
+    expect(a).toBeUndefined()
+    expect(b).toBeDefined()
+    expect(b).not.toBeUndefined()
   })
 })

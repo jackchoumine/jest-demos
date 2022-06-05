@@ -87,6 +87,10 @@ test('可用吗？', () => {
 
 > toEqual 值比较，值相同，就相等
 
+> toBeNull 检查`null`
+
+> toBeDefined、toBeUndefined 检查`undefined`
+
 2. 字符串
 
 3. 数字
