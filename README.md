@@ -7,7 +7,7 @@ jest 学习
 安装依赖：
 
 ```bash
-npm i -D jest # 版本还是 ~28.1.0
+npm i -D jest # 此时版本是 ~28.1.0
 ```
 
 写一个测试：
@@ -76,3 +76,4 @@ test('可用吗？', () => {
 1. 修改 type 为 `commonjs` 或者删除 type。 推荐。
 
 2. 修改`.babelrc.js` 为`.babelrc.cjs`
+
