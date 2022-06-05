@@ -1,0 +1,26 @@
+{
+  "name": "jest-demos",
+  "version": "1.0.0",
+  "description": "jest 学习",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackchoumine/jest-demos.git"
+  },
+  "keywords": [],
+  "author": "jackchoumine <jackzhoumine@gmail.com;jackchou4job@163.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jackchoumine/jest-demos/issues"
+  },
+  "homepage": "https://github.com/jackchoumine/jest-demos#readme",
+  "devDependencies": {
+    "jest": "~28.1.0"
+  }
+}
