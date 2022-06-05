@@ -28,3 +28,51 @@ test('可用吗？', () => {
   },
 ```
 
+2. ESM 环境搭建
+
+jest 在是 node 下使用的，只能使用 CJS 语法，希望使用 ES6 模块语法，需要 babel 转化。
+
+```bash
+npm i -D @babel/core @babel/preset-env
+```
+
+配置`.babelrc.js`:
+
+```js
+module.exports = {
+  presets: [
+    [
+      '@babel/preset-env',
+      {
+        targets: { node: 'current' },
+      },
+    ],
+  ],
+}
+```
+
+引入测试用代码验证环境是否可用：
+
+`tests/can-use.spec.js`
+
+```js
+import { sum } from '../src/es6.sum.js'
+
+test('可用吗？', () => {
+  expect(sum(1, 2)).toBe(3)
+})
+```
+
+执行`npx jest`。
+
+> 如果 package.json 含有 `"type": "module"`，改选项表示此 npm 包采用 ESM。
+
+报错：
+
+`Error while loading config - You appear to be using a native ECMAScript module configuration file, which is only supported when running Babel asynchronously.`
+
+两个办法解决：
+
+1. 修改 type 为 `commonjs` 或者删除 type。 推荐。
+
+2. 修改`.babelrc.js` 为`.babelrc.cjs`
