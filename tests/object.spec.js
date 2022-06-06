@@ -2,7 +2,7 @@
  * @Description : 对象和数组匹配器
  * @Date        : 2022-06-06 06:38:29 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-06-06 06:50:57 +0800
+ * @LastEditTime: 2022-06-07 06:59:20 +0800
  * @LastEditors : JackChou
  */
 
@@ -16,6 +16,11 @@ describe('对象和数组匹配器', () => {
     const arr = [1, { name: 'jest' }, 'hello']
     expect(arr).toBe(arr)
     expect(arr).not.toBe([1, { name: 'jest' }, 'hello'])
+    expect(arr).toContain(1)
+    const set = new Set([1, { name: 'jest' }, 'hello'])
+    expect(set).toContain(1)
+    expect(set).toContainEqual({ name: 'jest' })
+    expect(set).not.toContain({ name: 'jest' })
   })
 
   test('toEqual', () => {

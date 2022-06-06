@@ -93,6 +93,10 @@ test('可用吗？', () => {
 
 > toBeDefined(只要有值，即通过测试)、toBeUndefined 检查`undefined`
 
+> toContain 数组、set 严格匹配
+
+> toContainEqual 数组、set 值相等匹配
+
 2. 字符串
 
 3. 数字
