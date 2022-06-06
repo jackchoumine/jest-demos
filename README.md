@@ -97,4 +97,12 @@ test('可用吗？', () => {
 
 3. 数字
 
+> BeCloseTo 浮点数判断相等
+
+> toBeGreaterThan 大于
+
 4. 布尔值
+
+> toBeTruthy 真值
+
+> toBeFalsy 假值
