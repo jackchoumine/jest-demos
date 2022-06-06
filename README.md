@@ -91,7 +91,7 @@ test('可用吗？', () => {
 
 > toBeNull 检查`null`
 
-> toBeDefined、toBeUndefined 检查`undefined`
+> toBeDefined(只要有值，即通过测试)、toBeUndefined 检查`undefined`
 
 2. 字符串
 
