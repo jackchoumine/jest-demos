@@ -110,3 +110,20 @@ test('可用吗？', () => {
 > toBeTruthy 真值
 
 > toBeFalsy 假值
+
+5. 函数匹配器
+
+抛出异常：
+
+```js
+const testFn = () => {
+  throw new Error('test')
+}
+describe('函数抛出方法匹配', () => {
+  test('should throw error', () => {
+    expect(testFn).toThrow()
+    expect(testFn).not.toThrow('a')
+    expect(testFn).toThrow('test')
+  })
+})
+```
