@@ -113,7 +113,7 @@ test('可用吗？', () => {
 
 5. 函数匹配器
 
-抛出异常：
+> 抛出异常
 
 ```js
 const testFn = () => {
@@ -125,5 +125,16 @@ describe('函数抛出方法匹配', () => {
     expect(testFn).not.toThrow('a')
     expect(testFn).toThrow('test')
   })
+})
+```
+
+> 异步代码
+
+```js
+test('异步函数', done => {
+  fetchData(n => {
+    expect(n).toEqual(30)
+  })
+  done()
 })
 ```
