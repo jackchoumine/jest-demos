@@ -2,7 +2,7 @@
  * @Description : 抛出方法匹配
  * @Date        : 2022-06-07 07:02:36 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-06-07 08:19:17 +0800
+ * @LastEditTime: 2022-06-07 08:25:13 +0800
  * @LastEditors : JackChou
  */
 import { fetchData, githubUsers } from '../src/async.fn.js'
@@ -35,5 +35,10 @@ describe('函数', () => {
       .catch(error => {
         console.log(error)
       })
+  })
+
+  test('函数返回 promise', async () => {
+    const res = await githubUsers()
+    expect(res).toEqual(23)
   })
 })
