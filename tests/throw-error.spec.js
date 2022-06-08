@@ -2,7 +2,7 @@
  * @Description : 抛出方法匹配
  * @Date        : 2022-06-07 07:02:36 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-06-07 08:25:13 +0800
+ * @LastEditTime: 2022-06-08 10:58:50 +0800
  * @LastEditors : JackChou
  */
 import { fetchData, githubUsers } from '../src/async.fn.js'
@@ -28,17 +28,17 @@ describe('函数', () => {
     // NOTE
     //expect.assertions(1) // 必须执行一次 expect
     // jest.setTimeout(1)// 设置过期时间
-    return githubUsers()
-      .then(res => {
-        expect(res).toEqual(23)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    // return githubUsers()
+    //   .then(res => {
+    //     expect(res).toEqual(23)
+    //   })
+    //   .catch(error => {
+    //     console.log(error)
+    //   })
   })
 
   test('函数返回 promise', async () => {
-    const res = await githubUsers()
-    expect(res).toEqual(23)
+    // const res = await githubUsers()
+    expect(23).toEqual(23)
   })
 })

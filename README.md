@@ -130,11 +130,171 @@ describe('函数抛出方法匹配', () => {
 
 > 异步代码
 
+当你有以异步方式运行的代码时，Jest 需要知道当前它测试的代码是否已完成，然后它可以转移到另一个测试。
+
+回调类型：
+
 ```js
 test('异步函数', done => {
   fetchData(n => {
     expect(n).toEqual(30)
   })
   done()
+})
+```
+
+promise
+
+```js
+test('函数返回 promise', () => {
+  return githubUsers()
+    .then(res => {
+      expect(res).toEqual(23)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+})
+```
+
+使用 await
+
+```js
+test('函数返回 promise', async () => {
+  const res = await githubUsers()
+  expect(res).toEqual(23)
+})
+```
+
+6. 常用函数钩子
+
+`beforeEach` 在每个测试之前运行。
+`afterEach` 在每个测试之后运行。
+`beforeAll` 所有测试运行运行之前运行。
+`afterAll` 所有测试运行运行之后运行。
+
+钩子函数的运行的作用域，可通过 `describe` 进行分组，限制钩子函数的运行的范围。
+
+顶级的 beforeEach 会比 describe 中的 beforeEach 执行的更早。
+
+```js
+beforeAll(() => {
+  console.log('beforeAll ---1')
+})
+
+afterAll(() => {
+  console.log('afterAll ---1')
+})
+
+beforeEach(() => {
+  console.log('beforeEach ----- 1')
+})
+
+afterEach(() => {
+  console.log('afterEach ----- 1')
+})
+
+test('city database has Vienna', () => {
+  expect('Vienna').toBeTruthy()
+})
+
+describe('真值假值测试', () => {
+  beforeAll(() => {
+    console.log('beforeAll')
+  })
+
+  afterAll(() => {
+    console.log('afterAll')
+  })
+
+  beforeEach(() => {
+    console.log('beforeEach')
+  })
+  afterEach(() => {
+    console.log('afterEach')
+  })
+
+  test('真值？', () => {
+    expect(true).toBeTruthy()
+    expect('0').toBeTruthy()
+    expect(1).toBeTruthy()
+    expect(100).toBeTruthy()
+    expect({}).toBeTruthy()
+    expect([]).toBeTruthy()
+  })
+})
+// beforeAll ---1
+
+// beforeEach ----- 1
+// afterEach ----- 1
+
+// beforeAll
+// beforeEach ----- 1
+// beforeEach
+// afterEach
+// afterEach ----- 1
+
+// afterAll
+// afterAll ----- 1
+```
+
+describe 之间互不影响。
+
+```js
+describe('describe 1', () => {
+  beforeAll(() => {
+    console.log('beforeAll ---1')
+  })
+
+  afterAll(() => {
+    console.log('afterAll ---1')
+  })
+
+  beforeEach(() => {
+    console.log('beforeEach ----- 1')
+  })
+
+  afterEach(() => {
+    console.log('afterEach ----- 1')
+  })
+
+  test('city database has Vienna', () => {
+    expect('Vienna').toBeTruthy()
+  })
+})
+
+describe('真值假值测试', () => {
+  beforeAll(() => {
+    console.log('beforeAll')
+  })
+
+  afterAll(() => {
+    console.log('afterAll')
+  })
+
+  beforeEach(() => {
+    console.log('beforeEach')
+  })
+  afterEach(() => {
+    console.log('afterEach')
+  })
+  test('真值？', () => {
+    expect(true).toBeTruthy()
+    expect('0').toBeTruthy()
+    expect(1).toBeTruthy()
+    expect(100).toBeTruthy()
+    expect({}).toBeTruthy()
+    expect([]).toBeTruthy()
+  })
+
+  // beforeAll ---1
+  // beforeEach ----- 1
+  // afterEach ----- 1
+  // afterAll ---1
+
+  // beforeAll
+  // beforeEach
+  // afterEach
+  // afterAll
 })
 ```
