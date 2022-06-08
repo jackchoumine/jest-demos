@@ -2,7 +2,7 @@
  * @Description : 真值假值测试
  * @Date        : 2022-06-07 06:36:09 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-06-08 11:14:51 +0800
+ * @LastEditTime: 2022-06-08 11:18:49 +0800
  * @LastEditors : JackChou
  */
 describe('describe 1', () => {
@@ -59,4 +59,26 @@ describe('真值假值测试', () => {
   //   expect({}).not.toBeFalsy()
   //   expect([]).not.toBeFalsy()
   // })
+})
+
+describe('describe outer', () => {
+  console.log('describe outer-a')
+
+  describe('describe inner 1', () => {
+    console.log('describe inner 1')
+
+    test('test 1', () => console.log('test 1'))
+  })
+
+  console.log('describe outer-b')
+
+  test('test 2', () => console.log('test 2'))
+
+  describe('describe inner 2', () => {
+    console.log('describe inner 2')
+
+    test('test 3', () => console.log('test 3'))
+  })
+
+  console.log('describe outer-c')
 })
