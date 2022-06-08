@@ -324,3 +324,32 @@ describe('describe outer', () => {
   console.log('describe outer-c')
 })
 ```
+
+只运行一条测试：
+
+```js
+describe('describe outer', () => {
+  console.log('describe outer-a')
+
+  describe('describe inner 1', () => {
+    console.log('describe inner 1')
+
+    test('test 1', () => console.log('test 1'))
+  })
+
+  console.log('describe outer-b')
+
+  test.only('test only', () => console.log('test only'))
+  test('test 2', () => console.log('test 2'))
+
+  describe('describe inner 2', () => {
+    console.log('describe inner 2')
+
+    test('test 3', () => console.log('test 3'))
+  })
+
+  console.log('describe outer-c')
+})
+```
+
+`test.only` 在测试之前相互影响时，很有用。

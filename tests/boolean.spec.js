@@ -2,9 +2,11 @@
  * @Description : 真值假值测试
  * @Date        : 2022-06-07 06:36:09 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-06-08 11:18:49 +0800
+ * @LastEditTime: 2022-06-08 11:21:17 +0800
  * @LastEditors : JackChou
  */
+
+/*
 describe('describe 1', () => {
   beforeAll(() => {
     console.log('beforeAll ---1')
@@ -60,7 +62,7 @@ describe('真值假值测试', () => {
   //   expect([]).not.toBeFalsy()
   // })
 })
-
+*/
 describe('describe outer', () => {
   console.log('describe outer-a')
 
@@ -72,6 +74,7 @@ describe('describe outer', () => {
 
   console.log('describe outer-b')
 
+  test.only('test only', () => console.log('test only'))
   test('test 2', () => console.log('test 2'))
 
   describe('describe inner 2', () => {
