@@ -2,7 +2,7 @@
  * @Description : 对象和数组匹配器
  * @Date        : 2022-06-06 06:38:29 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-06-07 06:59:20 +0800
+ * @LastEditTime: 2022-06-08 16:59:56 +0800
  * @LastEditors : JackChou
  */
 
@@ -46,5 +46,9 @@ describe('对象和数组匹配器', () => {
     expect(a).toBeUndefined()
     expect(b).toBeDefined()
     expect(b).not.toBeUndefined()
+  })
+  test('测试属性', () => {
+    // toBeInstanceOf
+    expect({ name: 'jest' }).toHaveProperty('name')
   })
 })
