@@ -127,6 +127,8 @@ test('可用吗？', () => {
 
 ## 匹配器
 
+匹配器用来判断值是否符合预期。
+
 ### 常见数据类型的匹配器
 
 1. 引用类型（对象和数组）
@@ -168,7 +170,7 @@ const testFn = () => {
 describe('函数抛出方法匹配', () => {
   test('should throw error', () => {
     expect(testFn).toThrow()
-    expect(testFn).not.toThrow('a')
+    expect(testFn).not.toThrow(/a/)
     expect(testFn).toThrow('test')
   })
 })
