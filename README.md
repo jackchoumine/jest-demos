@@ -410,6 +410,135 @@ describe('describe outer', () => {
 
 `test.only` 在测试之前相互影响时，很有用。
 
+## 模拟
+
+有时候很多测试用例需要相关环境测试能进行（可测试），集成这些环境往往会使得测试不可控，真实环境也许缓慢和脆弱，比如真实环境要求定时器的间隔为 10 小时，测试不可能等待 10 小时，需要使用代码模拟一个稳定的环境，jest 可模拟常见“环境“，比如回调函数、定时器、数据库等。
+
+有一个函数：
+
+```js
+function forEach(items, callback) {
+  for (let index = 0; index < items.length; index++) {
+    callback(items[index])
+  }
+}
+```
+
+callback 是用户使用这个函数给的具体实现，希望测试这个 forEach，就需要给一个 callback 的实现，你也服务预知使用时的实现，就需要模拟一个实现，测试函数的行为：入参、调用次数、返回值等。
+
+```js
+describe('forEach', () => {
+  test('forEach', () => {
+    const mockCallback = jest.fn(x => 42 + x)
+    forEach([0, 1], mockCallback)
+    // 此 mock 函数被调用了两次
+    expect(mockCallback.mock.calls.length).toBe(2)
+
+    // 第一次调用函数时的第一个参数是 0
+    expect(mockCallback.mock.calls[0][0]).toBe(0)
+
+    // 第二次调用函数时的第一个参数是 1
+    expect(mockCallback.mock.calls[1][0]).toBe(1)
+
+    // 第一次函数调用的返回值是 42
+    expect(mockCallback.mock.results[0].value).toBe(42)
+  })
+})
+```
+
+> mock 属性
+
+所有 mock 函数都有一个`.mock`属性，它保存了关于函数如何被调用、调用时的返回值、this 等信息。
+
+```js
+const myMock1 = jest.fn()
+const a = new myMock1()
+// this 实例
+console.log(myMock1.mock.instances) //  [ mockConstructor { name: 'a' } ]
+// > [ <a> ]
+
+const myMock2 = jest.fn()
+const b = {}
+const bound = myMock2.bind(b)
+bound()
+// this 实例
+console.log(myMock2.mock.contexts) //  [ { name: 'b' } ]
+// > [ <b> ]
+```
+
+1. `mock.calls` 被调用的次数
+
+2. `mock.calls[0][0]` 第一次被调用的第一个参数
+
+3. `mock.results[0].value` 第一次被调用的返回值
+
+4. `mock.lastCall[0]` 最后一次调用的第一个参数
+
+> mock 函数返回值
+
+直接模拟返回值，可跳过中间操作，直接观察组件的表现。
+
+```js
+const myMock = jest.fn()
+console.log(myMock())
+// > undefined
+
+myMock.mockReturnValueOnce(10).mockReturnValueOnce('x').mockReturnValue(true)
+
+console.log(myMock(), myMock(), myMock(), myMock())
+//10 x true true // 返回值保留著最后一个
+
+const filterTestFn = jest.fn()
+
+// Make the mock return `true` for the first call,
+// and `false` for the second call
+filterTestFn.mockReturnValueOnce(true).mockReturnValueOnce(false)
+
+const result = [11, 12].filter(num => filterTestFn(num))
+
+console.log(result)
+// > [11]
+console.log(filterTestFn.mock.calls[0][0]) // 11
+console.log(filterTestFn.mock.calls[1][0]) // 12
+```
+
+> mock 模块
+
+有一个模块：
+
+```js
+import axios from 'axios'
+
+class Users {
+  static all() {
+    return axios.get('/users.json').then(resp => resp.data)
+  }
+}
+
+export default Users
+```
+
+测试这个接口调用，也许接口还没写好，也许接口很脆弱（不能多次调用），就需要我们模拟接口的返回值，提供一些假的数据。
+
+```js
+import axios from 'axios'
+import Users from './users'
+
+jest.mock('axios')
+
+test('should fetch users', () => {
+  const users = [{ name: 'Bob' }]
+  const resp = { data: users }
+
+  axios.get.mockResolvedValue(resp) // NOTE 模拟 promise resolve
+
+  // or you could use the following depending on your use case:
+  // axios.get.mockImplementation(() => Promise.resolve(resp))
+
+  return Users.all().then(data => expect(data).toEqual(users))
+})
+```
+
 ## 参考
 
 [An Introduction to testing in Javascript](https://gabrieltanner.org/blog/testing-introduction)

@@ -2,10 +2,12 @@
  * @Description : 真值假值测试
  * @Date        : 2022-06-07 06:36:09 +0800
  * @Author      : JackChou
- * @LastEditTime: 2022-06-08 11:21:17 +0800
+ * @LastEditTime: 2022-06-09 17:22:09 +0800
  * @LastEditors : JackChou
  */
-
+test('city database has Vienna', () => {
+  expect('Vienna').toBeTruthy()
+})
 /*
 describe('describe 1', () => {
   beforeAll(() => {
@@ -62,7 +64,7 @@ describe('真值假值测试', () => {
   //   expect([]).not.toBeFalsy()
   // })
 })
-*/
+
 describe('describe outer', () => {
   console.log('describe outer-a')
 
@@ -85,3 +87,4 @@ describe('describe outer', () => {
 
   console.log('describe outer-c')
 })
+*/
