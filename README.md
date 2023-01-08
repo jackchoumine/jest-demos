@@ -86,7 +86,11 @@ test('可用吗？', () => {
 
 2. ESM 环境搭建
 
-jest 在是 node 下使用的，只能使用 CJS 语法，希望使用 ES6 模块语法，需要 babel 转化。
+两种搭建办法：
+
+① babel 转换
+
+jest 在是 node 下使用的，只能使用 CJS 模块，希望使用 ES6 模块语法，需要 babel 转化。
 
 ```bash
 npm i -D @babel/core @babel/preset-env
@@ -121,7 +125,7 @@ test('可用吗？', () => {
 
 执行`npx jest`。
 
-> 如果 package.json 含有 `"type": "module"`，改选项表示此 npm 包采用 ESM。
+> 如果 package.json 含有 `"type": "module"`，该选项表示此 npm 包采用 ESM。
 
 报错：
 
@@ -132,6 +136,19 @@ test('可用吗？', () => {
 1. 修改 type 为 `commonjs` 或者删除 type。 推荐。
 
 2. 修改`.babelrc.js` 为`.babelrc.cjs`
+
+② 设置 jest 环境变量
+
+```json
+{
+  "type": "module", // 声明 npm 采用 ESM 规范
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --watchAll"
+  }
+}
+```
+
+> 采用这个方式，需要保证所有用到的依赖采用 ESM 模块。
 
 ## 匹配器
 
